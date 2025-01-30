@@ -1,22 +1,13 @@
 <html>
     <body>
         <div id="app"></div>
-        <script type="text/javascript">
-            // Select the div element with 'app' id
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <script type="text/jsx">
             const app = document.getElementById("app");
-
-            // Create Header element
-            const header = document.createElement("h1");
-
-            // Create a new text node for Header element
-            const text = "I love Computer Science!"
-            const headerContent = document.createTextNode(text);
-
-            // Append text to header element
-            header.appendChild(headerContent);    
-            
-            // Place header element inside div
-            app.appendChild(header);
+            const root = ReactDOM.createRoot(app);
+            root.render(<h1>I love Computer Science!</h1>);
         </script>
     </body>
 </html>
