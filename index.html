@@ -19,9 +19,7 @@
                 return <h1 onClick={increment}>{title}</h1>;
             }
             
-
-            function HomePage() {
-                const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton'];
+            function LikeCounter() {
                 const [likes, setLikes] = React.useState(0);
 
                 function handleClick() {
@@ -29,6 +27,12 @@
                     setLikes(likes + 1);
                 }
 
+                return <button onClick={handleClick}>Like</button>
+            }
+
+            function HomePage() {
+                const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton'];
+                
                 return (
                     <div>
                         {/* Nesting the Header component */}
@@ -39,7 +43,7 @@
                                 <li key={name}>{name}</li>
                              ))}
                         </ul>
-                        <button onClick={handleClick}>Like</button>
+                        <LikeCounter />
                     </div>
                 );
             }
