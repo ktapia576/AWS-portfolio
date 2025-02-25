@@ -1,5 +1,5 @@
-import LikeButton from './like-button';
-import Header from './header';
+import LikeButton from '@/app/like-button';
+import Header from '@/app/header';
 
 export default function HomePage() {
     const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton'];
