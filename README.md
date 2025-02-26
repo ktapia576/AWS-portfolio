@@ -10,6 +10,7 @@ This project follows the **JAMStack architecture**, leveraging static site gener
 - ✅ **Set up a custom domain with AWS Route 53**
 - ✅ **Explore serverless options with AWS Lambda**
 - ✅ **Use AWS S3 Bucket for static file storage**
+- ✅ **Secure HTTPS using AWS Certificate Manager (ACM)**
 - ✅ **Optimize performance and security using AWS services**
 
 ---
@@ -19,6 +20,7 @@ This project follows the **JAMStack architecture**, leveraging static site gener
 - **Frontend Library:** React
 - **Hosting:** AWS CloudFront + S3 (static site hosting)
 - **Domain Management:** AWS Route 53
+- **SSL/TLS Certificate:** AWS Certificate Manager (ACM)
 - **Optional Backend (for API calls):** AWS Lambda + API Gateway
 - **CI/CD:** GitHub Actions (possible future implementation)
 
@@ -44,23 +46,17 @@ npm run build  # or pnpm build / yarn build
 3. **Configure CloudFront to serve content from S3**
 4. **Enable Route 53 for domain management**
 
-### **4️⃣ (Optional) Use AWS Lambda for Dynamic API Routes**
+### **4️⃣ Secure with AWS Certificate Manager (ACM) for HTTPS**
+1. **Request an SSL certificate in AWS Certificate Manager (ACM)**
+2. **Validate the certificate using DNS CNAME records in Route 53**
+3. **Attach the ACM certificate to CloudFront**
+4. **Force HTTPS in CloudFront settings**
+
+### **5️⃣ (Optional) Use AWS Lambda for Dynamic API Routes**
 If using serverless functions, deploy AWS Lambda with API Gateway:
 ```bash
 # Example deployment using AWS SAM
 sam deploy --guided
-```
-
----
-
-## 📂 Folder Structure
-```
-/aws-portfolio
-  ├── /pages          # Next.js pages
-  ├── /components     # Reusable React components
-  ├── /public         # Static assets (images, fonts, etc.)
-  ├── /styles         # Global styles (Tailwind or CSS)
-  ├── .next/          # Build output (ignored in Git)
 ```
 
 ---
@@ -70,11 +66,6 @@ sam deploy --guided
 - ✅ **Implement authentication** (Cognito/Auth0)
 - ✅ **Enable server-side rendering (SSR) with AWS Lambda**
 - ✅ **Optimize caching & performance with CloudFront settings**
-
----
-
-## 📜 License
-This project is open-source under the **MIT License**.
 
 ---
 
