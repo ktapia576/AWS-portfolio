@@ -1,3 +1,5 @@
+import "@/app/global.css";
+
 import LikeButton from '@/app/ui/like-button';
 import Header from '@/app/ui/header';
 
