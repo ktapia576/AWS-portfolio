@@ -7,7 +7,7 @@ export default function HomePage() {
     const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton'];
     
     return (
-        <div>
+        <div className="grid min-h-screen place-items-center">
             {/* Nesting the Header component */}
             <Header title="React"/>
             <Header title="I love Computer Science!"/>
