@@ -1,5 +1,6 @@
 
-/* Button component to reuse same Tailwind Styling to make code neater and less verbose for parent Button wrapper components*/
+/* Button component to reuse same Tailwind Styling throughout project. 
+This makes code neater and less verbose for parent Button wrapper components*/
 
 export default function Button({children, className = "", ...props}) {
     return (
