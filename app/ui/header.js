@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export default function Header({ title }) {
+export default function Header({ title , className=""}) {
     const [count, setCount] = useState(0);
     
     function increment() {
@@ -11,5 +11,5 @@ export default function Header({ title }) {
     
     console.log(`${title}: count = ${count}`);
 
-    return <h1 onClick={increment}>{title}</h1>;
+    return <h1 className={className}onClick={increment}>{title}</h1>;
 }
