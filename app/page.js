@@ -7,8 +7,8 @@ export default function HomePage() {
     return (
         <div className="grid place-items-center gap-5 text-white">
             {/* Nesting the Header component */}
-            <Header title="React"/>
-            <Header title="I love Computer Science!"/>
+            <Header title="Hello! My name is Kevin Tapia"/>
+            <Header title="I enjoy diving deep into my learning and expanding my skillset. I love Computer Science!"/>
             <ul>
                 {names.map((name) => (
                     <li key={name}>{name}</li>
