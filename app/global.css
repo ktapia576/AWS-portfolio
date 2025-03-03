@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
+/* Add --prefersdark so you can setup a theme that will be used if 
+user has dark mode enable in system settings*/
 @plugin "daisyui" {
-    themes: dark --default;
+    themes: night --default; 
   }
 
 @theme {
