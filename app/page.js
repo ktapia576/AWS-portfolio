@@ -10,9 +10,9 @@ export default function HomePage() {
                 <div className="max-w-lg">
                     <Header className="text-5xl font-bold" title="Hello there! My name is Kevin Tapia" />
                     <Header className="py-6" title="I enjoy diving deep into my learning and expanding my skillset. I love Computer Science!"/>
-                    <ul>
+                    <ul className="list">
                         {names.map((name) => (
-                            <li key={name}>{name}</li>
+                            <li className="list-row" key={name}>{name}</li>
                             ))}
                     </ul>
                     <LikeButton />
