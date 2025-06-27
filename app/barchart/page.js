@@ -1,36 +1,83 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ChartContainer } from '@mui/x-charts/ChartContainer'; 
 import { BarPlot } from '@mui/x-charts/BarChart';
 
-// const data = [900, 3000, 2000, 2780, 1890, 2390, 3490];
-const labels = ['Page A', 'Page B', 'Page C', 'Page D', 'Page E', 'Page F', 'Page G'];
+// const data = [70, 20, 30, 15, 45, 10, 25];
+const elements =    [92, 47, 5, 11, 18, 56, 70, 0, 34, 39,
+  88, 20, 63, 77, 23, 3, 59, 64, 30, 86,
+  14, 97, 33, 6, 12, 21, 40, 2, 35, 99,
+  16, 81, 26, 93, 50, 84, 8, 79, 72, 67];
+
+// const labels = ['Page A', 'Page B', 'Page C', 'Page D', 'Page E', 'Page F', 'Page G'];
+const labels = Array.from({ length: elements.length }, (_, i) => `#${i + 1}`);
 
 export default function BarChartPage() {
-  const [data, setData] = useState([900, 3000, 2000, 2780, 1890, 2390, 3490]);
+  const [data, setData] = useState(elements);
 
-  const updateData = () => {
-    // Example: Increment all data points by 5
-    // const newData = data.map(value => value + 5);
-    
-    const newData = [900, 1890, 2000, 2780, 3000, 2390, 3490];
-    setData(newData);
+  // refs that survive re-renders but don’t trigger renders when they change
+  const timerRef  = useRef(null);  // interval ID
+  const swapsRef  = useRef([]);    // list of swap pairs (e.g. [[1,2], [0,4], …])
+  const stepRef   = useRef(0);     // which swap we’re on
+
+/* ---------- Bubble-sort recorder ---------- */
+  const recordBubbleSortSteps = array => {
+    const swaps = [];
+    const arr   = [...array];          // work on a copy
+
+    for (let i = 0; i < arr.length - 1; i++) {
+      for (let j = 0; j < arr.length - i - 1; j++) {
+        if (arr[j] > arr[j + 1]) {
+          swaps.push([j, j + 1]);      // record the swap
+          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]; // perform swap
+        }
+      }
+    }
+    return swaps;
   };
+  /* ------------------------------------------ */
+
+  const startSwapAnimation = () => {
+    if (timerRef.current) return;              // ignore if already animating
+
+    swapsRef.current = recordBubbleSortSteps(data);    // plan every swap up front
+    stepRef.current  = 0;
+
+    timerRef.current = setInterval(() => {
+      const next = swapsRef.current[stepRef.current++];
+      if (!next) {
+        clearInterval(timerRef.current);       // finished
+        timerRef.current = null;
+        return;
+      }
+
+      // Perform this frame’s swap
+      setData(prev => {
+        const arr = [...prev];
+        const [i, j] = next;
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+        return arr;
+      });
+    }, 300);                                   // swap every 300 ms
+  };
+
+  // Clear the timer if the component unmounts
+  useEffect(() => {
+    return () => timerRef.current && clearInterval(timerRef.current);
+  }, []);
 
     return (
       <div className="p-8">
         <h1 className="text-xl font-bold mb-4">Bar Chart Example</h1>
         <ChartContainer
-          width={500}
-          height={300}
           series={[{ data, label: 'uv', type: 'bar' }]}
           xAxis={[{ scaleType: 'band', data: labels }]}
         >
           <BarPlot />
         </ChartContainer>
 
-        <button onClick={updateData}>Update Data</button>
+        <button onClick={startSwapAnimation}>start Animation</button>
       </div>
     );
   }
