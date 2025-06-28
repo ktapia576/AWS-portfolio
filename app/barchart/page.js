@@ -1,5 +1,6 @@
 'use client';
 
+import { recordBubbleSortSteps } from '../../utils/sortingUtils';
 import { useState, useRef, useEffect } from 'react';
 import { ChartContainer } from '@mui/x-charts/ChartContainer'; 
 import { BarPlot } from '@mui/x-charts/BarChart';
@@ -21,23 +22,6 @@ export default function BarChartPage() {
   const swapsRef  = useRef([]);    // list of swap pairs (e.g. [[1,2], [0,4], …])
   const stepRef   = useRef(0);     // which swap we’re on
 
-/* ---------- Bubble-sort recorder ---------- */
-  const recordBubbleSortSteps = array => {
-    const swaps = [];
-    const arr   = [...array];          // work on a copy
-
-    for (let i = 0; i < arr.length - 1; i++) {
-      for (let j = 0; j < arr.length - i - 1; j++) {
-        if (arr[j] > arr[j + 1]) {
-          swaps.push([j, j + 1]);      // record the swap
-          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]; // perform swap
-        }
-      }
-    }
-    return swaps;
-  };
-  /* ------------------------------------------ */
-
   const startSwapAnimation = () => {
     if (timerRef.current) return;              // ignore if already animating
 
@@ -45,11 +29,12 @@ export default function BarChartPage() {
     stepRef.current  = 0;
 
     timerRef.current = setInterval(() => {
-      const next = swapsRef.current[stepRef.current++];
-      if (!next) {
-        clearInterval(timerRef.current);       // finished
-        timerRef.current = null;
-        return;
+      const next = swapsRef.current[stepRef.current++]; // get the next swap
+
+      if (!next) {                // ← falsy check (undefined / null / 0 / '')
+        clearInterval(timerRef.current); // stop the repeating timer
+        timerRef.current = null;         // mark as no-longer-running
+        return;                          // exit the interval callback
       }
 
       // Perform this frame’s swap
@@ -59,7 +44,8 @@ export default function BarChartPage() {
         [arr[i], arr[j]] = [arr[j], arr[i]];
         return arr;
       });
-    }, 300);                                   // swap every 300 ms
+
+    }, 200);                                   // swap every 300 ms
   };
 
   // Clear the timer if the component unmounts
@@ -71,8 +57,11 @@ export default function BarChartPage() {
       <div className="p-8">
         <h1 className="text-xl font-bold mb-4">Bar Chart Example</h1>
         <ChartContainer
+          width={1500}
+          height={800}
           series={[{ data, label: 'uv', type: 'bar' }]}
           xAxis={[{ scaleType: 'band', data: labels }]}
+          skipAnimation
         >
           <BarPlot />
         </ChartContainer>
