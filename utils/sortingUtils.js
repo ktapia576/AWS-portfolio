@@ -40,3 +40,20 @@ export function recordSelectionSort(array) {
   return swaps;
 }
 
+export function recordInsertionSort(array){
+  const swaps = [];
+  const arr = [...array];
+
+  for(let i = 1; i < arr.length; i++){
+    let key = i;
+    let j = i-1;
+    while(j >= 0 && key < arr[j]){
+      arr[j+1] = arr[j]; // shift one up
+      j--;
+    }
+
+    arr[j+1] = key; // j+1 becuase we j-- before checking if while loop condition met again
+  }
+
+  return swaps;
+}
