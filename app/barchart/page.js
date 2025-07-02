@@ -1,6 +1,6 @@
 'use client';
 
-import { recordBubbleSortSteps } from '../../utils/sortingUtils';
+import { recordBubbleSortSteps, recordSelectionSort} from '../../utils/sortingUtils';
 import { useState, useRef, useEffect } from 'react';
 import { ChartContainer } from '@mui/x-charts/ChartContainer'; 
 import { BarPlot } from '@mui/x-charts/BarChart';
@@ -25,7 +25,7 @@ export default function BarChartPage() {
   const startSwapAnimation = () => {
     if (timerRef.current) return;              // ignore if already animating
 
-    swapsRef.current = recordBubbleSortSteps(data);    // plan every swap up front
+    swapsRef.current = recordSelectionSort(data);    // plan every swap up front
     stepRef.current  = 0;
 
     timerRef.current = setInterval(() => {
