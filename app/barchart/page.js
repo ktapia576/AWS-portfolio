@@ -6,7 +6,7 @@ import { ChartContainer } from '@mui/x-charts/ChartContainer';
 import { BarPlot } from '@mui/x-charts/BarChart';
 
 // const data = [70, 20, 30, 15, 45, 10, 25];
-const elements =    [92, 47, 5, 11, 18, 56, 70, 0, 34, 39,
+const elements =    [92, 47, 5, 11, 18, 56, 70, 1, 34, 39,
   88, 20, 63, 77, 23, 3, 59, 64, 30, 86,
   14, 97, 33, 6, 12, 21, 40, 2, 35, 99,
   16, 81, 26, 93, 50, 84, 8, 79, 72, 67];
@@ -25,7 +25,7 @@ export default function BarChartPage() {
   const startSwapAnimation = () => {
     if (timerRef.current) return;              // ignore if already animating
 
-    swapsRef.current = recordSelectionSort(data);    // plan every swap up front
+    swapsRef.current = recordBubbleSortSteps(data);    // plan every swap up front
     stepRef.current  = 0;
 
     timerRef.current = setInterval(() => {
